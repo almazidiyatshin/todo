@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './todo-list-item.css';
 
-class TodoListItem extends Component {
+class ToDoListItem extends Component {
   render() {
     const {
       label, onDeleted, onToggleImportant, onToggleDone, important, done,
@@ -48,4 +48,4 @@ class TodoListItem extends Component {
   }
 }
 
-export { TodoListItem };
+export { ToDoListItem };
