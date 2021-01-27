@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './item-status-filter.css';
+import PropTypes from 'prop-types';
 
 class ItemStatusFilter extends Component {
 	
@@ -10,16 +10,17 @@ class ItemStatusFilter extends Component {
 	]
 	
 	render() {
-		const { filter, onFilterChange } = this.props;
+		const { filter, OnFilterChange } = this.props;
 		
 		const buttons = this.buttons.map(({ name, label }) => {
 			const isActive = filter === name;
 			const clazz = isActive ? 'btn-info' : 'btn-outline-secondary'
 			return (
-				<button type="button"
-				        className={`btn ${clazz}`}
-				        key={ name }
-								onClick={ () => onFilterChange(name) }>
+				<button
+					type="button"
+					className={`btn ${clazz}`}
+					key={ name }
+					onClick={ () => OnFilterChange(name) }>
 					{ label }
 				</button>
 			);
@@ -30,7 +31,12 @@ class ItemStatusFilter extends Component {
 				{ buttons }
 			</div>
 		);
-	};
+	}
+}
+
+ItemStatusFilter.propTypes = {
+	filter: PropTypes.any,
+	OnFilterChange: PropTypes.func,
 }
 
 export { ItemStatusFilter };

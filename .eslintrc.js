@@ -3,6 +3,10 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  globals: {
+    window: true,
+    module: true,
+  },
   extends: [
     'plugin:react/recommended',
     'eslint:recommended',

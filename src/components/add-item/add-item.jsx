@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import "./add-item.css";
+import PropTypes from 'prop-types';
+
+import './add-item.css';
 
 class AddItem extends Component {
 	
@@ -7,15 +9,15 @@ class AddItem extends Component {
 		label: ''
 	}
 	
-	onLabelChange = (e) => {
+	OnLabelChange = (e) => {
 		this.setState({
 			label: e.target.value
 		});
 	};
 	
-	onSubmit = (e) => {
+	OnSubmit = (e) => {
 		e.preventDefault();
-		this.props.onAdded(this.state.label);
+		this.props.OnAdded(this.state.label);
 		this.setState({
 			label: ''
 		});
@@ -25,11 +27,11 @@ class AddItem extends Component {
 		return (
 			<form
 				className="add-item d-flex"
-				onSubmit={ this.onSubmit }>
+				onSubmit={ this.OnSubmit }>
 				<input
 					type="text"
 					className="form-control"
-					onChange={ this.onLabelChange }
+					onChange={ this.OnLabelChange }
 					placeholder="Write your new task"
 					value={ this.state.label }/>
 				<button
@@ -37,7 +39,11 @@ class AddItem extends Component {
 					className="btn btn-outline-secondary">Add</button>
 			</form>
 		);
-	};
+	}
+}
+
+AddItem.propTypes = {
+	OnAdded: PropTypes.func,
 }
 
 export { AddItem };

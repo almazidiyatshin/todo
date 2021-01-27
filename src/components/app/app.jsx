@@ -5,6 +5,7 @@ import { SearchPanel } from '../search-panel/search-panel';
 import { TodoList } from '../todo-list/todo-list';
 import { ItemStatusFilter } from '../item-status-filter/item-status-filter';
 import { AddItem } from '../add-item/add-item';
+
 import './app.css';
 
 class App extends Component {
@@ -13,15 +14,15 @@ class App extends Component {
 	
 	state = {
 		toDoData: [
-			this.createToDoItem('Drink coffee'),
-			this.createToDoItem('Build Awesome app'),
-			this.createToDoItem('Have a lunch')
+			this.CreateToDoItem('Drink coffee'),
+			this.CreateToDoItem('Build Awesome app'),
+			this.CreateToDoItem('Have a lunch')
 		],
 		term: '',
 		filter: 'all'
 	};
 	
-	deleteItem = (id) => {
+	DeleteItem = (id) => {
 		this.setState(({ toDoData }) => {
 			const newToDoData = toDoData.filter((item) => item.id !== id);
 			return {
@@ -30,16 +31,16 @@ class App extends Component {
 		});
 	};
 	
-	createToDoItem(label) {
+	CreateToDoItem(label) {
 		return {
 			label,
 			important: false,
 			done: false,
 			id: this.maxId++
 		}
-	};
+	}
 	
-	addItem = (text) => {
+	AddItem = (text) => {
 		const newItem = this.createToDoItem(text);
 	
 		this.setState(({ toDoData }) => {
@@ -50,15 +51,15 @@ class App extends Component {
 		});
 	};
 	
-	toggleProperty(arr, id, propName) {
+	ToggleProperty(arr, id, propName) {
 		const idx = arr.findIndex((el) => el.id === id);
 		const oldItem = arr[idx];
 		const newItem = { ...oldItem, [propName]: !oldItem.[propName] };
 		
 		return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
-		};
+		}
 	
-	onToggleImportant = (id) => {
+	OnToggleImportant = (id) => {
 		this.setState(({ toDoData }) => {
 			return {
 				toDoData: this.toggleProperty(toDoData, id, 'important')
@@ -66,47 +67,51 @@ class App extends Component {
 		});
 	};
 	
-	onToggleDone = (id) => {
+	OnToggleDone = (id) => {
 		this.setState(({ toDoData }) => {
 			return {
-				toDoData: this.toggleProperty(toDoData, id, 'done')
+				toDoData: this.ToggleProperty(toDoData, id, 'done')
 			};
 		});
 	};
 	
-	onSearchChange = (term) => {
+	OnSearchChange = (term) => {
 		this.setState({ term })
 	}
 	
-	onFilterChange = (filter) => {
+	OnFilterChange = (filter) => {
 		this.setState({ filter })
 	}
 	
-	search(items, term) {
+	Search(items, term) {
 		if (term.length === 0) {
 			return items;
 		}
 		return items.filter((item) => {
 			return item.label.toLowerCase().indexOf(term.toLowerCase()) > -1;
 		});
-	};
+	}
 	
-	filter(items, filter) {
+	Filter(items, filter) {
+		const all = 'all';
+		const active = 'active';
+		const done = 'done';
+		
 		switch(filter) {
-			case 'all':
+			case all:
 				return items;
-			case 'active':
+			case active:
 				return items.filter((item) => !item.done);
-			case 'done':
+			case done:
 				return items.filter((item) => item.done);
 			default:
 				return items;
-		};
-	};
+		}
+	}
 	
 	render() {
 		const { toDoData, term, filter } = this.state;
-		const visibleItems = this.filter(this.search(toDoData, term), filter);
+		const visibleItems = this.Filter(this.Search(toDoData, term), filter);
 		
 		const doneCount = toDoData.filter((el) => el.done).length;
 		const toDoCount = toDoData.filter((el) => !el.done).length;
@@ -115,21 +120,21 @@ class App extends Component {
 			<div className="todo-app">
 				<AppHeader toDo={ toDoCount } done={ doneCount }/>
 				<div className="top-panel d-flex">
-					<SearchPanel onSearchChange={ this.onSearchChange }/>
+					<SearchPanel onSearchChange={ this.OnSearchChange }/>
 					<ItemStatusFilter
 						filter={ filter }
-						onFilterChange={ this.onFilterChange }/>
+						onFilterChange={ this.OnFilterChange }/>
 				</div>
 				<TodoList
 					todos={ visibleItems }
-					onDeleted={ this.deleteItem }
-					onToggleImportant={ this.onToggleImportant }
-					onToggleDone={ this.onToggleDone }
+					onDeleted={ this.DeleteItem }
+					onToggleImportant={ this.OnToggleImportant }
+					onToggleDone={ this.OnToggleDone }
 				/>
-				<AddItem onAdded={ this.addItem }/>
+				<AddItem onAdded={ this.AddItem }/>
 			</div>
 		);
-	};
+	}
 }
 
 export { App };

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import './todo-list-item.css';
 
 class ToDoListItem extends Component {
   render() {
     const {
-      label, onDeleted, onToggleImportant, onToggleDone, important, done,
+      label, OnDeleted, OnToggleImportant, OnToggleDone, important, done,
     } = this.props;
 
     let classNames = 'todo-list-item';
@@ -18,11 +20,11 @@ class ToDoListItem extends Component {
     }
 
     return (
-      <span className={classNames}>
+      <span className={ classNames }>
 
         <span
           className="todo-list-item-label"
-          onClick={onToggleDone}
+          onClick={ OnToggleDone }
         >
           { label }
         </span>
@@ -30,7 +32,7 @@ class ToDoListItem extends Component {
         <button
           type="button"
           className="btn btn-outline-success btn-sm float-right"
-          onClick={onToggleImportant}
+          onClick={ OnToggleImportant }
         >
           <i className="fa fa-exclamation" />
         </button>
@@ -38,7 +40,7 @@ class ToDoListItem extends Component {
         <button
           type="button"
           className="btn btn-outline-danger btn-sm float-right"
-          onClick={onDeleted}
+          onClick={ OnDeleted }
         >
           <i className="fa fa-trash-o" />
         </button>
@@ -46,6 +48,15 @@ class ToDoListItem extends Component {
       </span>
     );
   }
+}
+
+ToDoListItem.propTypes = {
+  label: PropTypes.any,
+  OnDeleted: PropTypes.any,
+  OnToggleImportant: PropTypes.any,
+  OnToggleDone: PropTypes.any,
+  important: PropTypes.any,
+  done: PropTypes.any,
 }
 
 export { ToDoListItem };
