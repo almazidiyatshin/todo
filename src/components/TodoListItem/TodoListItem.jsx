@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import './todo-list-item.css';
+import PropTypes from 'prop-types';
+
+import './TodoListItem.css';
 
 class TodoListItem extends Component {
   render() {
     const {
-      label, onDeleted, onToggleImportant, onToggleDone, important, done,
+      label,
+      onDeleted,
+      onToggleImportant,
+      onToggleDone,
+      important,
+      done,
     } = this.props;
 
-    let classNames = 'todo-list-item';
+    let classNames = 'TodoList-item';
 
     if (done) {
       classNames += ' done';
@@ -19,12 +26,8 @@ class TodoListItem extends Component {
 
     return (
       <span className={classNames}>
-
-        <span
-          className="todo-list-item-label"
-          onClick={onToggleDone}
-        >
-          { label }
+        <span className="todo-list-item-label" onClick={onToggleDone}>
+          {label}
         </span>
 
         <button
@@ -42,10 +45,18 @@ class TodoListItem extends Component {
         >
           <i className="fa fa-trash-o" />
         </button>
-
       </span>
     );
   }
 }
+
+TodoListItem.propTypes = {
+  label: PropTypes.string,
+  onDeleted: PropTypes.func,
+  onToggleImportant: PropTypes.func,
+  onToggleDone: PropTypes.func,
+  important: PropTypes.string,
+  done: PropTypes.string,
+};
 
 export { TodoListItem };
