@@ -1,8 +1,11 @@
+const { ESLint } = require('eslint');
+
 module.exports = {
   env: {
     browser: true,
     es2021: true,
   },
+  parser: 'babel-eslint',
   globals: {
     window: true,
     module: true,
