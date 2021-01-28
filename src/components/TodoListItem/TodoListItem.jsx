@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './todo-list-item.css';
+import './TodoListItem.css';
 
-class ToDoListItem extends Component {
+class TodoListItem extends Component {
   render() {
     const {
-      label, OnDeleted, OnToggleImportant, OnToggleDone, important, done,
+      label,
+      onDeleted,
+      onToggleImportant,
+      onToggleDone,
+      important,
+      done,
     } = this.props;
 
-    let classNames = 'todo-list-item';
+    let classNames = 'TodoList-item';
 
     if (done) {
       classNames += ' done';
@@ -20,19 +25,15 @@ class ToDoListItem extends Component {
     }
 
     return (
-      <span className={ classNames }>
-
-        <span
-          className="todo-list-item-label"
-          onClick={ OnToggleDone }
-        >
-          { label }
+      <span className={classNames}>
+        <span className="todo-list-item-label" onClick={onToggleDone}>
+          {label}
         </span>
 
         <button
           type="button"
           className="btn btn-outline-success btn-sm float-right"
-          onClick={ OnToggleImportant }
+          onClick={onToggleImportant}
         >
           <i className="fa fa-exclamation" />
         </button>
@@ -40,23 +41,22 @@ class ToDoListItem extends Component {
         <button
           type="button"
           className="btn btn-outline-danger btn-sm float-right"
-          onClick={ OnDeleted }
+          onClick={onDeleted}
         >
           <i className="fa fa-trash-o" />
         </button>
-
       </span>
     );
   }
 }
 
-ToDoListItem.propTypes = {
-  label: PropTypes.any,
-  OnDeleted: PropTypes.any,
-  OnToggleImportant: PropTypes.any,
-  OnToggleDone: PropTypes.any,
-  important: PropTypes.any,
-  done: PropTypes.any,
-}
+TodoListItem.propTypes = {
+  label: PropTypes.string,
+  onDeleted: PropTypes.func,
+  onToggleImportant: PropTypes.func,
+  onToggleDone: PropTypes.func,
+  important: PropTypes.string,
+  done: PropTypes.string,
+};
 
-export { ToDoListItem };
+export { TodoListItem };
